@@ -122,7 +122,8 @@ const (
 	EtcdComponentType       ComponentType = "etcd"
 	EtcdClientComponentType ComponentType = "etcd-client"
 
-	ItsmComponentType ComponentType = "itsm"
+	ItsmComponentType     ComponentType = "itsm"
+	WorkflowComponentType ComponentType = "workflow"
 	// Telegraf is monitor agent component type
 	TelegrafComponentType ComponentType = "telegraf"
 	CloudIdComponentType  ComponentType = "cloudid"
@@ -253,7 +254,8 @@ type OnecloudClusterSpec struct {
 	// EsxiAgent hols configuration for esxi agent
 	EsxiAgent ZoneStatefulDeploymentSpec `json:"esxiagent"`
 	// Itsm holds configuration for itsm service
-	Itsm DeploymentSpec `json:"itsm"`
+	Itsm     DeploymentSpec `json:"itsm"`
+	Workflow DeploymentSpec `json:"workflow"`
 
 	// ServiceOperator hols configuration for service-operator
 	ServiceOperator DeploymentSpec `json:"onecloudServiceOperator"`
@@ -300,6 +302,7 @@ type OnecloudClusterStatus struct {
 	VpcAgent       DeploymentStatus     `json:"vpcAgent,omitempty"`
 	Etcd           EctdStatus           `json:"etcd,omitempty"`
 	Itsm           DeploymentStatus     `json:"itsm,omitempty"`
+	Workflow       DeploymentStatus     `json:"workflow,omitempty"`
 	CloudId        DeploymentStatus     `json:"cloudid,omitempty"`
 	MonitorStack   MonitorStackStatus   `json:"monitorStack,omitempty"`
 }
@@ -931,6 +934,7 @@ type OnecloudClusterConfig struct {
 	VpcAgent        VpcAgentConfig         `json:"vpcagent"`
 	ServiceOperator ServiceCommonOptions   `json:"onecloudServiceOperator"`
 	Itsm            ItsmConfig             `json:"itsm"`
+	Workflow        ServiceDBCommonOptions `json:"workflow"`
 	CloudId         ServiceDBCommonOptions `json:"cloudid"`
 	Suggestion      ServiceDBCommonOptions `json:"suggestion"`
 }

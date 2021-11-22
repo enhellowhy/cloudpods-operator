@@ -357,6 +357,13 @@ const (
 	ServiceNameItsm = "itsm"
 	ServiceTypeItsm = "itsm"
 
+	WorkflowAdminUser   = "workflow"
+	WorkflowPort        = 30600
+	WorkflowDB          = "workflow"
+	WorkflowDBUser      = "workflow"
+	ServiceNameWorkflow = "workflow"
+	ServiceTypeWorkflow = "workflow"
+
 	ServiceNameSuggestion = "suggestion"
 	ServiceTypeSuggestion = "suggestion"
 	SuggestionPort        = 30987
