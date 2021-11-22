@@ -99,6 +99,7 @@ build_process() {
         echo "[$(readlink -f ${BASH_SOURCE}):${LINENO} ${FUNCNAME[0]}] return for DRY_RUN"
         return
     fi
+#    echo "No build_bin func, use local bin"
     build_image $img_name $DOCKER_DIR/Dockerfile $SRC_DIR
     if [[ "$PUSH" == "true" ]]; then
         push_image "$img_name"
@@ -115,11 +116,11 @@ build_process_with_buildx() {
     if [[ $arch == arm64 ]]; then
         build_env="$build_env CC=aarch64-linux-musl-gcc"
     fi
-	build_bin $component $build_env
-    if [[ "$DRY_RUN" == "true" ]]; then
-        echo "[$(readlink -f ${BASH_SOURCE}):${LINENO} ${FUNCNAME[0]}] return for DRY_RUN"
-        return
-    fi
+#	build_bin $component $build_env
+#    if [[ "$DRY_RUN" == "true" ]]; then
+#        echo "[$(readlink -f ${BASH_SOURCE}):${LINENO} ${FUNCNAME[0]}] return for DRY_RUN"
+#        return
+#    fi
 	buildx_and_push $img_name $DOCKER_DIR/Dockerfile $SRC_DIR $arch
 }
 
@@ -163,6 +164,9 @@ for component in $COMPONENTS; do
                 build_process_with_buildx $component $arch "true"
             done
             make_manifest_image $component
+            ;;
+        amd64)
+            build_process $component $ARCH "false"
             ;;
         arm64)
             build_process_with_buildx $component $ARCH "false"
