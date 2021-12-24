@@ -1257,7 +1257,7 @@ func (m *ComponentManager) Logger() manager.Manager {
 }
 
 func (m *ComponentManager) Workflow() manager.Manager {
-	return newLoggerManager(m)
+	return newWorkflowManager(m)
 }
 
 func (m *ComponentManager) Region() manager.Manager {

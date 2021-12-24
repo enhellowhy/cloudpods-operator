@@ -95,6 +95,7 @@ build_process() {
     local img_name=$(get_image_name $component $arch $is_all_arch)
 
     build_bin $component
+#    echo "No build_bin func, use local bin"
     build_image $img_name $DOCKER_DIR/Dockerfile $SRC_DIR
     if [[ "$PUSH" == "true" ]]; then
         push_image "$img_name"
@@ -111,7 +112,7 @@ build_process_with_buildx() {
     if [[ $arch == arm64 ]]; then
         build_env="$build_env CC=aarch64-linux-musl-gcc"
     fi
-	build_bin $component $build_env
+#	build_bin $component $build_env
 	buildx_and_push $img_name $DOCKER_DIR/Dockerfile $SRC_DIR $arch
 }
 
@@ -151,6 +152,9 @@ for component in $COMPONENTS; do
                 build_process_with_buildx $component $arch "true"
             done
             make_manifest_image $component
+            ;;
+        amd64)
+            build_process $component $ARCH "false"
             ;;
         arm64)
             build_process_with_buildx $component $ARCH "false"
