@@ -156,6 +156,10 @@ for component in $COMPONENTS; do
         amd64)
             build_process $component $ARCH "false"
             ;;
+        amd64)
+            echo "-----------------It is amd64-----------------"
+            build_process $component $ARCH "false"
+            ;;
         arm64)
             build_process_with_buildx $component $ARCH "false"
             ;;

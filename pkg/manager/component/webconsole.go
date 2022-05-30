@@ -75,7 +75,40 @@ func (m *webconsoleManager) getService(oc *v1alpha1.OnecloudCluster, zone string
 }
 
 func (m *webconsoleManager) getDeployment(oc *v1alpha1.OnecloudCluster, cfg *v1alpha1.OnecloudClusterConfig, zone string) (*apps.Deployment, error) {
-	return m.newCloudServiceSinglePortDeployment(v1alpha1.WebconsoleComponentType, "", oc, &oc.Spec.Webconsole, constants.WebconsolePort, false, false)
+	//return m.newCloudServiceSinglePortDeployment(v1alpha1.WebconsoleComponentType, "", oc, &oc.Spec.Webconsole, constants.WebconsolePort, false, false)
+	deploy, err := m.newCloudServiceSinglePortDeployment(v1alpha1.WebconsoleComponentType, "", oc, &oc.Spec.Webconsole, constants.WebconsolePort, false, false)
+	if err != nil {
+		return nil, err
+	}
+
+	podTemplate := &deploy.Spec.Template.Spec
+	podVols := podTemplate.Volumes
+	volMounts := podTemplate.Containers[0].VolumeMounts
+	var privileged = true
+	podTemplate.Containers[0].SecurityContext = &corev1.SecurityContext{
+		Privileged: &privileged,
+	}
+
+	var hostPathDirectory = corev1.HostPathDirectory
+	podVols = append(podVols, corev1.Volume{
+		Name: "dev",
+		VolumeSource: corev1.VolumeSource{
+			HostPath: &corev1.HostPathVolumeSource{
+				Path: "/dev",
+				Type: &hostPathDirectory,
+			},
+		},
+	})
+	volMounts = append(volMounts, corev1.VolumeMount{
+		Name:      "dev",
+		ReadOnly:  false,
+		MountPath: "/dev",
+	})
+
+	podTemplate.Containers[0].VolumeMounts = volMounts
+	podTemplate.Volumes = podVols
+
+	return deploy, nil
 }
 
 func (m *webconsoleManager) getDeploymentStatus(oc *v1alpha1.OnecloudCluster, zone string) *v1alpha1.DeploymentStatus {
