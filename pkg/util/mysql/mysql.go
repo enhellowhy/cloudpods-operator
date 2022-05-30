@@ -197,6 +197,10 @@ func (conn *Connection) CreateUser(username string, password string, database st
 		return errors.Wrapf(err, "Delete user %s", username)
 	}
 	for _, addr := range addrs {
+		//_, err := conn.db.Exec(fmt.Sprintf("CREATE USER '%s'@'%s' IDENTIFIED BY '%s'", username, addr, password))
+		//if err != nil {
+		//	return errors.Wrapf(err, "Create user %s@%s to database %s", username, addr, database)
+		//}
 		if err := conn.Grant(username, password, database, addr); err != nil {
 			return errors.Wrapf(err, "Grant user %s@%s to database %s", username, addr, database)
 		}
