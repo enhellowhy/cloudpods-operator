@@ -127,6 +127,7 @@ func SetDefaults_OnecloudClusterSpec(obj *OnecloudClusterSpec, isEE bool) {
 		ServiceOperatorComponentType: &obj.ServiceOperator,
 		ItsmComponentType:            &obj.Itsm,
 		WorkflowComponentType:        &obj.Workflow,
+		MeterLIComponentType:         &obj.MeterLI,
 		CloudIdComponentType:         &obj.CloudId,
 		SuggestionComponentType:      &obj.Suggestion,
 		CloudmonComponentType:        &obj.Cloudmon.DeploymentSpec,
@@ -467,6 +468,7 @@ func SetDefaults_OnecloudClusterConfig(obj *OnecloudClusterConfig) {
 		&obj.Monitor:                             {constants.MonitorAdminUser, constants.MonitorPort, constants.MonitorDB, constants.MonitorDBUser},
 		&obj.Itsm.ServiceDBCommonOptions:         {constants.ItsmAdminUser, constants.ItsmPort, constants.ItsmDB, constants.ItsmDBUser},
 		&obj.Workflow:                            {constants.WorkflowAdminUser, constants.WorkflowPort, constants.WorkflowDB, constants.WorkflowDBUser},
+		&obj.MeterLI:                             {constants.MeterLIAdminUser, constants.MeterLIPort, constants.MeterLIDB, constants.MeterLIDBUser},
 		&obj.CloudId:                             {constants.CloudIdAdminUser, constants.CloudIdPort, constants.CloudIdDB, constants.CloudIdDBUser},
 	} {
 		if user, ok := registryPorts[tmp.port]; ok {
