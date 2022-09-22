@@ -1464,6 +1464,10 @@ func (m *ComponentManager) Meter() manager.Manager {
 	return newMeterManager(m)
 }
 
+func (m *ComponentManager) MeterLI() manager.Manager {
+	return newMeterLIManager(m)
+}
+
 func (m *ComponentManager) AutoUpdate() manager.Manager {
 	return newAutoUpdateManager(m)
 }

@@ -94,7 +94,8 @@ const (
 	// DevtoolComponentType is devops tool based on ansible
 	DevtoolComponentType ComponentType = "devtool"
 	// MeterComponentType is meter service
-	MeterComponentType ComponentType = "meter"
+	MeterComponentType   ComponentType = "meter"
+	MeterLIComponentType ComponentType = "meter-li"
 	// AutoUpdateComponentType is autoupdate service
 	AutoUpdateComponentType ComponentType = "autoupdate"
 	// CloudmonPing is ping cronjob
@@ -276,6 +277,8 @@ type OnecloudClusterSpec struct {
 	Devtool DeploymentServicePortSpec `json:"devtool"`
 	// Meter holds configuration for meter
 	Meter MeterSpec `json:"meter"`
+	// MeterLI holds configuration for meterLI
+	MeterLI DeploymentServicePortSpec `json:"meterLI"`
 	// AutoUpdate holds configuration for autoupdate
 	AutoUpdate DeploymentServicePortSpec `json:"autoupdate"`
 	// Cloudmon holds configuration for report monitor data
@@ -337,6 +340,7 @@ type OnecloudClusterStatus struct {
 	Etcd           EctdStatus           `json:"etcd,omitempty"`
 	Itsm           DeploymentStatus     `json:"itsm,omitempty"`
 	Workflow       DeploymentStatus     `json:"workflow,omitempty"`
+	MeterLI        DeploymentStatus     `json:"meterLI,omitempty"`
 	CloudId        DeploymentStatus     `json:"cloudid,omitempty"`
 	Cloudmon       DeploymentStatus     `json:"cloudmon,omitempty"`
 	MonitorStack   MonitorStackStatus   `json:"monitorStack,omitempty"`
@@ -1039,6 +1043,7 @@ type OnecloudClusterConfig struct {
 	ServiceOperator ServiceCommonOptions   `json:"onecloudServiceOperator"`
 	Itsm            ItsmConfig             `json:"itsm"`
 	Workflow        ServiceDBCommonOptions `json:"workflow"`
+	MeterLI         ServiceDBCommonOptions `json:"meterLI"`
 	CloudId         ServiceDBCommonOptions `json:"cloudid"`
 	Report          ServiceDBCommonOptions `json:"report"`
 	Grafana         GrafanaConfig          `json:"grafana"`

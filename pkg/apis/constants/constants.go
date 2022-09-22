@@ -338,6 +338,13 @@ const (
 	MeterMonthlyBill       = true
 	MeterAwsRiPlanIdHandle = "true"
 
+	MeterLIAdminUser   = "meterli"
+	MeterLIPort        = 30666
+	MeterLIDB          = "meter"
+	MeterLIDBUser      = "meter"
+	ServiceNameMeterLI = "meter-li"
+	ServiceTypeMeterLI = "meter-li"
+
 	EsxiAgentAdminUser = "esxiagent"
 	EsxiAgentPort      = 30883
 	EsxiAgentDataStore = "/opt/cloud/workspace"
