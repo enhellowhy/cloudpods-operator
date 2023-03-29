@@ -27,7 +27,7 @@ jobs:
         make build
 
     - name: Image onecloud-operator
-      uses: elgohr/Publish-Docker-Github-Action@master
+      uses: elgohr/Publish-Docker-Github-Action@v5
       with:
         name: registry.cn-beijing.aliyuncs.com/yunionio/onecloud-operator
         username: ${{ secrets.DOCKER_USERNAME }}
